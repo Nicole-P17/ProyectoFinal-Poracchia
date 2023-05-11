@@ -1,0 +1,14 @@
+{% extends "AppTerapia/base.html"%}
+
+{% block contenido %}
+<section>
+    <div>
+        <h1>Lista de consultantes</h1>
+        <ul>
+            {% for consultante in consultantes %}
+            <li>{{ consultante.apellido }}, {{ consultante.nombre }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock contenido %}

@@ -1,11 +1,22 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href= "{% static 'AppTerapia/css/styles.css' %}" rel="stylesheet"/>
 </head>
+
 <body>
-    esto se ve en la pagina
+    el nombre es {{nombre}} y el apellido es {{apellido}}
+    <p style="color: cyan">Hola!</p>
 </body>
+{% block contenido %}
+{% endblock contenido %}
+<script src="https://jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </html>
