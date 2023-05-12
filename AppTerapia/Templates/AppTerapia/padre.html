@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class= "navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class= "navbar-brand" href="{% url 'saludo' %}"> saludo</a>
+            <a class= "navbar-brand" href="{% url 'pacientes' %}"> pacientes </a>
+            <a class= "navbar-brand" href="{% url 'miNombre' %}"> miNombre </a>
+            <a class= "navbar-brand" href="{% url 'probandoTemplate' %}"> probandoTemplate</a>
+            <a class= "navbar-brand" href="{% url 'listar_consultantes' %}"> listar_consultantes</a>
+            <a class= "navbar-brand" href="{% url 'listar_pacientes' %}"> listar_pacientes</a>
+            <a class= "navbar-brand" href="{% url 'listar_psicologos' %}"> listar_psicologos</a>
+            <a class= "btn btn-primary" href="#NADAAUN"> INICIAR</a>
+        </div>    
+    </nav>
+    Esto no cambia, lo de abajo si
+</body>
+{% block contenidoQueCambia %}
+{% endblock %}
+</html>
