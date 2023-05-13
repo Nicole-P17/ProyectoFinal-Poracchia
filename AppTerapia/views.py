@@ -1,17 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 # Create your views here.
-def probandoTemplate(request):
-    nom="Stefania"
-    ap="Poracchia"
-
-    contexto = {"nombre":nom, "apellido":ap}
-    http_responde = render(
-    request=request,
-    template_name = 'AppTerapia/base.html',
-    context=contexto,
-    )
-    return http_responde
 
 def listar_consultantes (request):
     contexto = {
@@ -62,8 +51,6 @@ def listar_psicologos (request):
     return http_responde
 
 
-def saludo(request):
-    return HttpResponse("Hola")
 
 def consultantes(request):
     return HttpResponse("Consultantes")
@@ -74,9 +61,6 @@ def pacientes(request):
 def psicologos(request):
     return HttpResponse("Psicologos")
 
-def Minombre(self,nombre):
-    documentosDeTexto = f"Mi nombre es: <br><br> {nombre}"
-    return HttpResponse(documentosDeTexto)
 
 #usar el puerto 8888 para el comando python manage.py runserver 8888
 
