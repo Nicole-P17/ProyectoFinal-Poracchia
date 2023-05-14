@@ -1,0 +1,13 @@
+{% extends "AppTerapia/base.html"%}
+
+
+{% block contenido %}
+<form action="{% url 'crear_paciente' %}" method="post"> 
+    {% csrf_token %} 
+    <p> Nombre de paciente </p>
+    <input type="text" name="nombre"> 
+    <p> Telefono </p>
+    <input type="number" name="telefono" step="1"> 
+    <input type="submit" value="ENVIAR"> 
+</form>
+{% endblock contenido %}

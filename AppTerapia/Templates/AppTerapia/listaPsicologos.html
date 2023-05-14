@@ -8,6 +8,7 @@
 <section>
     <div>
         <h1 class="mb-5">Lista de psicologos</h1>
+        <a href="{% url 'crear_psicologo' %}">Crear psicologo</a>
         <ul>
             {% for psicologo in psicologos %}
             <li>{{ psicologo.nombre }} es un psicologx especializadx en {{ psicologo.especializacion}} y cobra {{psicologo.precioSesion}}</li>

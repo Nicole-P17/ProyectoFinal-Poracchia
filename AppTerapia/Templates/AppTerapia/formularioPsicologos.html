@@ -1,0 +1,15 @@
+{% extends "AppTerapia/base.html"%}
+
+
+{% block contenido %}
+<form action="{% url 'crear_psicologo' %}" method="post"> 
+    {% csrf_token %} 
+    <p> Nombre de psicologo </p>
+    <input type="text" name="nombre"> </input>
+    <p> especializacion </p>
+    <input type="text" name="especializacion"> 
+    <p> precio por sesion </p>
+    <input type="number" name="precioSesion" step="1"> 
+    <input type="submit" value="ENVIAR"> 
+</form>
+{% endblock contenido %}

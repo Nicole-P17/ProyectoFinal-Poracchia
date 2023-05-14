@@ -5,6 +5,7 @@
 <section>
     <div>
         <h1 class="mb-5">Lista de consultantes</h1>
+        <a href="{% url 'crear_consultante' %}">Crear consultante</a>
         <ul>
             {% for consultante in consultantes %}
             <li> {{ consultante.nombre }} consulta por {{consultante.motivo}} </li>

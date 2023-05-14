@@ -23,3 +23,5 @@ python manage.py createsuperuser
 
 ### Usuarios normales
 + username: usuario_primero - contraseña: argetina123
+
+## Github ubicado en branch origin/master

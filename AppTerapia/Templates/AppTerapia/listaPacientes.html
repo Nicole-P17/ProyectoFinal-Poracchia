@@ -5,6 +5,7 @@
 <section>
     <div>
         <h1 class="mb-5">Lista de pacientes</h1>
+        <a href="{% url 'crear_paciente' %}">Crear paciente</a>
         <ul>
             {% for paciente in pacientes %}
             <li> el telefono de {{ paciente.nombre }} es: +54911{{paciente.telefono}} </li>
