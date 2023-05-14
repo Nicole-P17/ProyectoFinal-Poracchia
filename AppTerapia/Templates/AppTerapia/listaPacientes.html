@@ -4,10 +4,10 @@
 {% block contenido %}
 <section>
     <div>
-        <h1>Lista de pacientes</h1>
+        <h1 class="mb-5">Lista de pacientes</h1>
         <ul>
             {% for paciente in pacientes %}
-            <li>{{ paciente.apellido }}, {{ paciente.nombre }}</li>
+            <li> el telefono de {{ paciente.nombre }} es: +54911{{paciente.telefono}} </li>
             {% endfor %}
         </ul>
     </div>

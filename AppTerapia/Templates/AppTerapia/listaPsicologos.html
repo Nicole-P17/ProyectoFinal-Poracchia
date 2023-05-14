@@ -7,10 +7,10 @@
 {% block contenido %}
 <section>
     <div>
-        <h1>Lista de psicologos</h1>
+        <h1 class="mb-5">Lista de psicologos</h1>
         <ul>
             {% for psicologo in psicologos %}
-            <li>{{ psicologo.apellido }}, {{ psicologo.nombre }}</li>
+            <li>{{ psicologo.nombre }} es un psicologx especializadx en {{ psicologo.especializacion}} y cobra {{psicologo.precioSesion}}</li>
             {% endfor %}
         </ul>
     </div>

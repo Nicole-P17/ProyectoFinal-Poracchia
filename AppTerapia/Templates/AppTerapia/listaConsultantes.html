@@ -4,10 +4,10 @@
 {% block contenido %}
 <section>
     <div>
-        <h1>Lista de consultantes</h1>
+        <h1 class="mb-5">Lista de consultantes</h1>
         <ul>
             {% for consultante in consultantes %}
-            <li>{{ consultante.apellido }}, {{ consultante.nombre }}</li>
+            <li> {{ consultante.nombre }} consulta por {{consultante.motivo}} </li>
             {% endfor %}
         </ul>
     </div>

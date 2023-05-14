@@ -1,15 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse 
+from AppTerapia.models import Paciente, Terapeuta, Consultante
 # Create your views here.
 
 def listar_consultantes (request):
     contexto = {
-        "consultantes": [
-            {"nombre":"martin", "apellido":"navarro"},
-            {"nombre":"valentina", "apellido":"sousa"},
-            {"nombre":"maria", "apellido":"cifuentes"},
-            {"nombre":"matias", "apellido":"figueroa"},
-        ]
+        "consultantes": Consultante.objects.all()
+
     }
     http_responde = render(
     request=request,
@@ -20,12 +17,7 @@ def listar_consultantes (request):
 
 def listar_pacientes (request):
     contexto = {
-        "pacientes": [
-            {"nombre":"pablo", "apellido":"lopez"},
-            {"nombre":"julian", "apellido":"sanchez"},
-            {"nombre":"florencia", "apellido":"rojas"},
-            {"nombre":"sofia", "apellido":"martinez"},
-        ]
+        "pacientes": Paciente.objects.all()
     }
     http_responde = render(
     request=request,
@@ -36,12 +28,7 @@ def listar_pacientes (request):
 
 def listar_psicologos (request):
     contexto = {
-        "psicologos": [
-            {"nombre":"rosa", "apellido":"gonzalez"},
-            {"nombre":"mora", "apellido":"gomez"},
-            {"nombre":"bautista", "apellido":"diaz"},
-            {"nombre":"gonzalo", "apellido":"fernandez"},
-        ]
+        "psicologos": Terapeuta.objects.all()
     }
     http_responde = render(
     request=request,
@@ -60,6 +47,8 @@ def pacientes(request):
 
 def psicologos(request):
     return HttpResponse("Psicologos")
+
+
 
 
 #usar el puerto 8888 para el comando python manage.py runserver 8888
