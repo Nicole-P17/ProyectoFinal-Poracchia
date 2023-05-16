@@ -8,7 +8,7 @@
         <a href="{% url 'crear_consultante' %}">Crear consultante</a>
         <ul>
             {% for consultante in consultantes %}
-            <li> {{ consultante.nombre }} consulta por {{consultante.motivo}} </li>
+            <li> {{ consultante.nombre }} consulta por {{consultante.motivo}} y su telefono es: +54911{{consultante.telefono}}</li>
             {% endfor %}
         </ul>
     </div>

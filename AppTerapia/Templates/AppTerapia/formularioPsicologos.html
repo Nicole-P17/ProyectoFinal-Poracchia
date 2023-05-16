@@ -6,8 +6,14 @@
     {% csrf_token %} 
     <p> Nombre de psicologo </p>
     <input type="text" name="nombre"> </input>
+    <p> Edad </p>
+    <input type="number" name="edad" step="1"> 
+    <p> Matricula </p>
+    <input type="number" name="matricula" step="1">
     <p> especializacion </p>
     <input type="text" name="especializacion"> 
+    <p> mail: </p>
+    <input type="text" name="mail"> 
     <p> precio por sesion </p>
     <input type="number" name="precioSesion" step="1"> 
     <input type="submit" value="ENVIAR"> 
