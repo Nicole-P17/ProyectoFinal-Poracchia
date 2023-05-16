@@ -43,7 +43,8 @@ def crear_consultante (request):
         data = request.POST
         nombre = data ["nombre"]
         motivo = data["motivo"]
-        consultante = Consultante(nombre=nombre, motivo=motivo)
+        telefono = data["telefono"]
+        consultante = Consultante(nombre=nombre, motivo=motivo, telefono=telefono)
         consultante.save()
 
         url_exitosa = reverse("listar_consultantes")
@@ -78,10 +79,11 @@ def crear_psicologo (request):
     if request.method == "POST":
         data = request.POST
         nombre = data["nombre"]
-        pagoSesion = data["pagoSesion"]
+        edad = data["edad"]
+        precioSesion = data["precioSesion"]
         especializacion = data["especializacion"]
-        consultante = Terapeuta(nombre=nombre, pagoSesion=pagoSesion, especializacion=especializacion)
-        consultante.save()
+        terapeuta = Terapeuta(nombre=nombre, edad=edad, precioSesion=precioSesion, especializacion=especializacion)
+        terapeuta.save()
 
         url_exitosa = reverse("listar_psicologos")
         return redirect(url_exitosa)

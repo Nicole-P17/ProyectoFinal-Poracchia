@@ -5,7 +5,9 @@
 <form action="{% url 'crear_paciente' %}" method="post"> 
     {% csrf_token %} 
     <p> Nombre de paciente </p>
-    <input type="text" name="nombre"> 
+    <input type="text" name="nombre">
+    <p> Edad </p>
+    <input type="number" name="edad" step="1">  
     <p> Telefono </p>
     <input type="number" name="telefono" step="1"> 
     <input type="submit" value="ENVIAR"> 
