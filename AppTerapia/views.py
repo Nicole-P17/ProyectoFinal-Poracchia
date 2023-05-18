@@ -97,36 +97,42 @@ def buscar_paciente (request):
         return http_response
         
 
-def crear_psicologo (request):
+def crear_psicologo(request):
+    formulario = PsicologoFormulario()
+
     if request.method == "POST":
         formulario = PsicologoFormulario(request.POST)
 
         if formulario.is_valid():
             data = formulario.cleaned_data
-            nombre = data ["nombre"]
-            edad = data ["edad"]
-            precioSesion = data ["precioSesion"]
-            especializacion = data ["especializacion"]
-            matricula = data ["matricula"]
-            mail = data ["mail"]
-            psicologo = Terapeuta(nombre=nombre, 
-                                  edad=edad, 
-                                  precioSesion=precioSesion, 
-                                  especializacion=especializacion,
-                                  matricula=matricula,
-                                  mail=mail, )
+            nombre = data["nombre"]
+            edad = data["edad"]
+            precioSesion = data["precioSesion"]
+            especializacion = data["especializacion"]
+            matricula = data["matricula"]
+            telefono = data["telefono"]
+            mail = data["mail"]
+
+            psicologo = Terapeuta(
+                nombre=nombre, 
+                edad=edad, 
+                precioSesion=precioSesion, 
+                especializacion=especializacion,
+                matricula=matricula,
+                telefono=telefono,
+                mail=mail
+            )
             psicologo.save()
 
             url_exitosa = reverse('listar_psicologos')
             return redirect(url_exitosa)
-        else: #GET
-            formulario = PsicologoFormulario()
-        http_response = render(
-            request=request,
-            template_name ='AppTerapia/formularioPsicologos.html',
-            context ={'formulario': formulario},
-        )
-        return http_response
+
+    http_response = render(
+        request=request,
+        template_name='AppTerapia/formularioPsicologos.html',
+        context={'formulario': formulario},
+    )
+    return http_response
 
 
 def consultantes(request):

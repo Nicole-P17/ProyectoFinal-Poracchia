@@ -11,7 +11,9 @@
         <a href="{% url 'crear_psicologo' %}">Crear psicologo</a>
         <ul>
             {% for psicologo in psicologos %}
-            <li>{{ psicologo.nombre }} es un psicologx especializadx en {{ psicologo.especializacion}}, su matricula es: {{psicologo.matricula}}, con {{psicologo.edad}} años y cobra {{psicologo.precioSesion}}. mail: {{psicologo.mail}}.</li>
+            <li>{{ psicologo.nombre }} es un psicologx especializadx en {{ psicologo.especializacion}}, su matricula es: {{psicologo.matricula}}, 
+                con {{psicologo.edad}} años y cobra {{psicologo.precioSesion}}. 
+                Datos adicionales: mail: {{psicologo.mail}} y telefono +54911{{psicologo.telefono}}.</li>
             {% endfor %}
         </ul>
     </div>
