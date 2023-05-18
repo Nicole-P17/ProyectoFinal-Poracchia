@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from AppTerapia.forms import PsicologoFormulario
 from django.http import HttpResponse 
 from AppTerapia.models import Paciente, Terapeuta, Consultante
 # Create your views here.
@@ -9,34 +10,34 @@ def listar_consultantes (request):
         "consultantes": Consultante.objects.all()
 
     }
-    http_responde = render(
+    http_response = render(
     request=request,
     template_name = 'AppTerapia/listaConsultantes.html',
     context=contexto,
     )
-    return http_responde
+    return http_response
 
 def listar_pacientes (request):
     contexto = {
         "pacientes": Paciente.objects.all()
     }
-    http_responde = render(
+    http_response = render(
     request=request,
     template_name = 'AppTerapia/listaPacientes.html',
     context=contexto,
     )
-    return http_responde
+    return http_response
 
 def listar_psicologos (request):
     contexto = {
         "psicologos": Terapeuta.objects.all()
     }
-    http_responde = render(
-    request=request,
-    template_name = 'AppTerapia/listaPsicologos.html',
-    context=contexto,
+    http_response = render(
+        request=request,
+        template_name = 'AppTerapia/listaPsicologos.html',
+        context=contexto,
     )
-    return http_responde
+    return http_response
 
 def crear_consultante (request):
     if request.method == "POST":
@@ -53,11 +54,11 @@ def crear_consultante (request):
         return redirect(url_exitosa)
     
     else:
-        http_responde = render(
-        request=request,
-        template_name = 'AppTerapia/formularioConsultantes.html',
+        http_response = render(
+            request=request,
+            template_name = 'AppTerapia/formularioConsultantes.html',
         )
-        return http_responde
+        return http_response
 
 def crear_paciente (request):
     if request.method == "POST":
@@ -74,38 +75,58 @@ def crear_paciente (request):
         return redirect(url_exitosa)
     
     else:
-        http_responde = render(
-        request=request,
-        template_name = 'AppTerapia/formularioPacientes.html',
+        http_response = render(
+            request=request,
+            template_name = 'AppTerapia/formularioPacientes.html',
         )
-        return http_responde
+        return http_response
+
+def buscar_paciente (request):
+    if request.method == "POST":
+        data = request.POST
+        busqueda = data["busqueda"]
+        pacientes = Paciente.objetcs.filter(telefono__contains = busqueda)
+        contexto = {
+            "pacientes": pacientes,
+        }
+        http_response = render(
+            request=request,
+            template_name = 'AppTerapia/listaPacientes.html',
+            context=contexto,
+        )
+        return http_response
+        
 
 def crear_psicologo (request):
     if request.method == "POST":
-        data = request.POST
-        nombre = data["nombre"]
-        edad = data["edad"]
-        precioSesion = data["precioSesion"]
-        especializacion = data["especializacion"]
-        matricula = data["matricula"]
-        mail = data["mail"]
-        terapeuta = Terapeuta(nombre=nombre, 
-                              edad=edad, 
-                              precioSesion=precioSesion, 
-                              especializacion=especializacion, 
-                              matricula=matricula, 
-                              mail=mail)
-        terapeuta.save()
+        formulario = PsicologoFormulario(request.POST)
 
-        url_exitosa = reverse("listar_psicologos")
-        return redirect(url_exitosa)
-    
-    else:
-        http_responde = render(
-        request=request,
-        template_name = 'AppTerapia/formularioPsicologos.html',
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            nombre = data ["nombre"]
+            edad = data ["edad"]
+            precioSesion = data ["precioSesion"]
+            especializacion = data ["especializacion"]
+            matricula = data ["matricula"]
+            mail = data ["mail"]
+            psicologo = Terapeuta(nombre=nombre, 
+                                  edad=edad, 
+                                  precioSesion=precioSesion, 
+                                  especializacion=especializacion,
+                                  matricula=matricula,
+                                  mail=mail, )
+            psicologo.save()
+
+            url_exitosa = reverse('listar_psicologos')
+            return redirect(url_exitosa)
+        else: #GET
+            formulario = PsicologoFormulario()
+        http_response = render(
+            request=request,
+            template_name ='AppTerapia/formularioPsicologos.html',
+            context ={'formulario': formulario},
         )
-        return http_responde
+        return http_response
 
 
 def consultantes(request):

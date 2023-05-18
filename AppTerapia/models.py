@@ -5,7 +5,7 @@ class Terapeuta (models.Model):
     nombre=models.CharField(max_length=40)
     edad = models.IntegerField()
     precioSesion = models.IntegerField()
-    especializacion= models.TextField(max_length=100)
+    especializacion= models.CharField(max_length=100)
     matricula = models.IntegerField()
     telefono = models.IntegerField()
     mail = models.EmailField(blank=True)
@@ -23,7 +23,7 @@ class Paciente (models.Model):
 
 class Consultante (models.Model):
     nombre=models.CharField(max_length=40)
-    motivo = models.TextField(max_length=100)
+    motivo = models.CharField(max_length=100)
     telefono = models.IntegerField()
     mail = models.EmailField()
     def __str__ (self):
