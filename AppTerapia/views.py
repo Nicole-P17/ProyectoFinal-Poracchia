@@ -81,20 +81,16 @@ def crear_paciente (request):
         )
         return http_response
 
-def buscar_paciente (request):
+def buscar_paciente(request):
     if request.method == "POST":
-        data = request.POST
-        busqueda = data["busqueda"]
-        pacientes = Paciente.objetcs.filter(telefono__contains = busqueda)
+        busqueda = request.POST.get("busqueda")
+        pacientes = Paciente.objects.filter(telefono__contains=busqueda)
         contexto = {
             "pacientes": pacientes,
         }
-        http_response = render(
-            request=request,
-            template_name = 'AppTerapia/listaPacientes.html',
-            context=contexto,
-        )
-        return http_response
+        return render(request, 'AppTerapia/listaPacientes.html', contexto)
+
+    return render(request, 'AppTerapia/listaPacientes.html')
         
 
 def crear_psicologo(request):

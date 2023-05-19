@@ -1,4 +1,4 @@
-{% extends "AppTerapia/base.html"%}
+{% extends "AppTerapia/base.html" %}
 {% load static %}
 
 {% block contenido %}
@@ -7,14 +7,14 @@
         <h1 class="mb-5">Lista de pacientes</h1>
         <a href="{% url 'crear_paciente' %}">Crear paciente</a>
 
-        <form action="{% url 'buscar_paciente'%}" methos="post">
-            {% csrf_token%}
+        <form action="{% url 'buscar_paciente' %}" method="post">
+            {% csrf_token %}
             <input type="text" name="busqueda">
-            <input type="submit" value="Buscar por telefono">
+            <input type="submit" value="Buscar por teléfono">
         </form>
         <ul>
             {% for paciente in pacientes %}
-            <li> el telefono de {{ paciente.nombre }} es: +54911{{paciente.telefono}} </li>
+            <li>El teléfono de {{ paciente.nombre }} es: +54911{{ paciente.telefono }}</li>
             {% endfor %}
         </ul>
     </div>
