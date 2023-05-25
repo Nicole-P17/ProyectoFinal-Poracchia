@@ -1,6 +1,7 @@
+from ctypes.wintypes import PSIZE
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from AppTerapia.forms import PsicologoFormulario
+from AppTerapia.forms import PsicologoFormulario, PacienteFormulario
 from django.http import HttpResponse 
 from AppTerapia.models import Paciente, Terapeuta, Consultante
 # Create your views here.
@@ -48,6 +49,7 @@ def crear_consultante (request):
         consultante = Consultante(nombre=nombre, 
                                   motivo=motivo, 
                                   telefono=telefono)
+        
         consultante.save()
 
         url_exitosa = reverse("listar_consultantes")
@@ -82,16 +84,69 @@ def crear_paciente (request):
         return http_response
 
 def buscar_paciente(request):
-    if request.method == "POST":
-        busqueda = request.POST.get("busqueda")
-        pacientes = Paciente.objects.filter(telefono__contains=busqueda)
-        contexto = {
-            "pacientes": pacientes,
-        }
-        return render(request, 'AppTerapia/listaPacientes.html', contexto)
+    formulario = PacienteFormulario()
 
-    return render(request, 'AppTerapia/listaPacientes.html')
+    if request.method == "POST":
+        formulario = PacienteFormulario(request.POST)
         
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            nombre = data["nombre"]
+            edad = data['edad']
+            telefono = data['telefono']
+
+            paciente = Paciente(
+                nombre = nombre,
+                edad = edad,
+                telefono = telefono,
+            )
+            paciente.save()
+
+            url_exitosa = reverse('listar_pacientes')
+            return redirect(url_exitosa)
+        
+    http_response = render (
+        request=request,
+        template_name='AppTerapia/formularioPacientes.html',
+        context={'formulario': formulario},
+    )
+    return http_response
+        
+def eliminar_paciente(request, id):
+    paciente = Paciente.objects.get(id=id)
+    if request.method == "POST":
+        paciente.delete()
+        url_exitosa = reverse('listar_pacientes')
+        return redirect(url_exitosa)
+
+def editar_paciente(request, id):
+    paciente = Paciente.objects.get(id=id)
+    if request.method == "POST":
+        formulario = PacienteFormulario(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            paciente.nombre = data['nombre']
+            paciente.edad = data["edad"]
+            paciente.telefono = data['telefono']
+            paciente.save()
+
+            url_exitosa = reverse('listar_pacientes')
+            return redirect(url_exitosa)
+    else:  # GET
+        inicial = {
+            'nombre': paciente.nombre,
+            'edad': paciente.edad,
+            'telefono': paciente.telefono,
+        }
+        formulario = PacienteFormulario(initial=inicial)
+    return render(
+        request=request,
+        template_name='AppTerapia/formularioPacientes.html',
+        context={'formulario': formulario},
+    )
+
+
 
 def crear_psicologo(request):
     formulario = PsicologoFormulario()
@@ -129,6 +184,7 @@ def crear_psicologo(request):
         context={'formulario': formulario},
     )
     return http_response
+
 
 
 def consultantes(request):

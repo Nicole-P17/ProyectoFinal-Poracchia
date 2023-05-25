@@ -1,10 +1,11 @@
 from django import forms
-from AppTerapia.models import Terapeuta
+from AppTerapia.models import Terapeuta, Paciente
 
 class PacienteFormulario(forms.Form):
-    nombre= forms.CharField(required=True, max_length=40)
-    edad = forms.IntegerField(required=True,)
-    telefono = forms.IntegerField(required=True,)
+    class Meta:
+        model = Paciente
+        fields = ['nombre', 'edad', 'telefono']
+
 
 class PsicologoFormulario(forms.ModelForm):
     class Meta:
