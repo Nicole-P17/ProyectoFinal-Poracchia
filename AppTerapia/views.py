@@ -1,12 +1,16 @@
 from ctypes.wintypes import PSIZE
 from django.shortcuts import render, redirect
 from django.urls import reverse
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from AppTerapia.forms import PsicologoFormulario, PacienteFormulario
 from django.http import HttpResponse 
 from AppTerapia.models import Paciente, Terapeuta, Consultante
 # Create your views here.
 
-def listar_consultantes (request):
+def listar_consultantes (LoginRequiredMixin, request,):
     contexto = {
         "consultantes": Consultante.objects.all()
 
@@ -18,7 +22,7 @@ def listar_consultantes (request):
     )
     return http_response
 
-def listar_pacientes (request):
+def listar_pacientes (request, ):
     contexto = {
         "pacientes": Paciente.objects.all()
     }
@@ -29,7 +33,7 @@ def listar_pacientes (request):
     )
     return http_response
 
-def listar_psicologos (request):
+def listar_psicologos (request, ):
     contexto = {
         "psicologos": Terapeuta.objects.all()
     }
@@ -40,7 +44,7 @@ def listar_psicologos (request):
     )
     return http_response
 
-def crear_consultante (request):
+def crear_consultante (request, ):
     if request.method == "POST":
         data = request.POST
         nombre = data ["nombre"]
@@ -62,7 +66,7 @@ def crear_consultante (request):
         )
         return http_response
 
-def crear_paciente (request):
+def crear_paciente (request, ):
     if request.method == "POST":
         data = request.POST
         nombre = data["nombre"]
@@ -83,7 +87,7 @@ def crear_paciente (request):
         )
         return http_response
 
-def buscar_paciente(request):
+def buscar_paciente(request, ):
     formulario = PacienteFormulario()
 
     if request.method == "POST":
@@ -112,14 +116,16 @@ def buscar_paciente(request):
     )
     return http_response
         
-def eliminar_paciente(request, id):
+
+def eliminar_paciente(request, id, ):
     paciente = Paciente.objects.get(id=id)
     if request.method == "POST":
         paciente.delete()
         url_exitosa = reverse('listar_pacientes')
         return redirect(url_exitosa)
 
-def editar_paciente(request, id):
+
+def editar_paciente(request, id, ):
     paciente = Paciente.objects.get(id=id)
     if request.method == "POST":
         formulario = PacienteFormulario(request.POST)
@@ -148,7 +154,7 @@ def editar_paciente(request, id):
 
 
 
-def crear_psicologo(request):
+def crear_psicologo(request, ):
     formulario = PsicologoFormulario()
 
     if request.method == "POST":
@@ -184,7 +190,6 @@ def crear_psicologo(request):
         context={'formulario': formulario},
     )
     return http_response
-
 
 
 def consultantes(request):

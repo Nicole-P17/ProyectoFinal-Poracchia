@@ -19,13 +19,21 @@
     <link href= "{% static 'AppTerapia/css/styles.css' %}" rel="stylesheet"/>
 </head>
 
-    <body>
+    <body> 
+        <!-- Navigation-->
         <nav class= "navbar navbar-light bg-light static-top">
             <div class="container">
+                <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
                 <a class= "navbar-brand" href="{% url 'listar_consultantes' %}"> lista de consultantes</a>
                 <a class= "navbar-brand" href="{% url 'listar_pacientes' %}"> lista de pacientes</a>
                 <a class= "navbar-brand" href="{% url 'listar_psicologos' %}"> lista de psicologos</a>
                 <a class= "btn btn-warning" href="#NADAAUN"> INICIAR </a>
+                {% if user.is_authenticated %}
+                <a class="btn btn-warning" href="{% url 'logout' %}">Cierre sesión</a>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">Inicio sesión</a>
+                <a class="btn btn-success" href="{% url 'registro' %}">Registro</a>
+                {% endif %}
             </div>    
         </nav>
         <section style="padding:4rem 3rem;">       

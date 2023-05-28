@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from AppTerapia import views
 
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path("buscar-paciente/", buscar_paciente, name="buscar_paciente"),
     path("eliminar-paciente/<int:id>/", eliminar_paciente, name="eliminar_paciente"),
     path("editar-paciente/<int:id>/", editar_paciente, name="editar_paciente"),
+
 ]
