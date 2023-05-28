@@ -7,6 +7,7 @@ from AppTerapia.views import listar_consultantes, listar_pacientes, listar_psico
 from AppTerapia.views import crear_consultante, crear_paciente, crear_psicologo, buscar_paciente
 from AppTerapia.views import eliminar_paciente, editar_paciente
 
+
 urlpatterns = [
     path("lista-consultantes/", views.listar_consultantes, name="listar_consultantes"),
     path("lista-pacientes/", views.listar_pacientes, name="listar_pacientes"),

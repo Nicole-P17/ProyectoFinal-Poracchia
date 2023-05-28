@@ -163,6 +163,7 @@ def crear_psicologo(request, ):
             matricula = data["matricula"]
             telefono = data["telefono"]
             mail = data["mail"]
+            creador = request.user
 
             psicologo = Terapeuta(
                 nombre=nombre, 
@@ -172,6 +173,7 @@ def crear_psicologo(request, ):
                 matricula=matricula,
                 telefono=telefono,
                 mail=mail,
+                creador=creador
             )
             psicologo.save()
 

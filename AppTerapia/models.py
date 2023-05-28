@@ -10,6 +10,7 @@ class Terapeuta (models.Model):
     matricula = models.IntegerField()
     telefono = models.IntegerField()
     mail = models.EmailField()
+    creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     def __str__ (self):
         return f"{self.nombre} | {self.especializacion}"
