@@ -88,31 +88,18 @@ def crear_paciente (request, ):
         return http_response
 
 def buscar_paciente(request, ):
-    formulario = PacienteFormulario()
 
     if request.method == "POST":
-        formulario = PacienteFormulario(request.POST)
-        
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            nombre = data["nombre"]
-            edad = data['edad']
-            telefono = data['telefono']
-
-            paciente = Paciente(
-                nombre = nombre,
-                edad = edad,
-                telefono = telefono,
-            )
-            paciente.save()
-
-            url_exitosa = reverse('listar_pacientes')
-            return redirect(url_exitosa)
-        
+        data = request.POST
+        busqueda = data["busqueda"]
+        pacientes = Paciente.objects.filter(telefono__icontains=busqueda)
+        contexto = {
+            "pacientes": pacientes,
+        }
     http_response = render (
         request=request,
-        template_name='AppTerapia/formularioPacientes.html',
-        context={'formulario': formulario},
+        template_name='AppTerapia/listaPacientes.html',
+        context=contexto,
     )
     return http_response
         
