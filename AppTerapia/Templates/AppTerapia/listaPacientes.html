@@ -37,10 +37,12 @@
                         <a href="{% url 'editar_paciente' paciente.id %}">Editar</a>
                     </td>
                     <td>
+                        {% if user == paciente.creador %}
                         <form action="{% url 'eliminar_paciente' paciente.id %}" method="post">
                             {% csrf_token %}
                             <input type="submit" value="eliminar"/>
                         </form>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
