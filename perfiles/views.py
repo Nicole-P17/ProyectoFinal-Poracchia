@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 
-from perfiles.forms import UserRegisterForm, UserUpdateForm
+from perfiles.forms import UserRegisterForm, UserUpdateForm, AvatarFormulario
+from perfiles.models import Avatar
 
 
 def registro(request):
@@ -57,6 +57,7 @@ def login_view(request):
 class CustomLogoutView(LogoutView):
    template_name = 'perfiles/logout.html'
 
+
 class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
     form_class = UserUpdateForm
     success_url = reverse_lazy('inicio')
@@ -64,3 +65,22 @@ class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+def agregar_avatar(request):
+    if request.method == "POST":
+        formulario = AvatarFormulario(request.POST, request.FILES) # Aquí me llega toda la info del formulario html
+
+        if formulario.is_valid():
+            avatar = formulario.save()
+            avatar.user = request.user
+            avatar.save()
+            url_exitosa = reverse('inicio')
+            return redirect(url_exitosa)
+    else:  # GET
+        formulario = AvatarFormulario()
+    return render(
+        request=request,
+        template_name="perfiles/formulario_avatar.html",
+        context={'form': formulario},
+    )
