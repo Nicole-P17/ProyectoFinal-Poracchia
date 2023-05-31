@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 
 from perfiles.forms import UserRegisterForm, UserUpdateForm, AvatarFormulario
-from perfiles.models import Avatar
+from perfiles.models import Avatar 
 
 
 def registro(request):
@@ -69,16 +69,26 @@ class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
 
 def agregar_avatar(request):
     if request.method == "POST":
-        formulario = AvatarFormulario(request.POST, request.FILES) # Aquí me llega toda la info del formulario html
+        formulario = AvatarFormulario(request.POST, request.FILES)
 
         if formulario.is_valid():
-            avatar = formulario.save()
+            avatar = formulario.save(commit=False)  # No guardamos todavía el objeto Avatar en la base de datos
             avatar.user = request.user
-            avatar.save()
+
+            # Verificar si el usuario ya tiene un avatar asociado
+            if Avatar.objects.filter(user=request.user).exists():
+                # Actualizar el avatar existente en lugar de crear uno nuevo
+                avatar_existing = Avatar.objects.get(user=request.user)
+                avatar_existing.imagen = avatar.imagen
+                avatar_existing.save()
+            else:
+                avatar.save()
+
             url_exitosa = reverse('inicio')
             return redirect(url_exitosa)
     else:  # GET
         formulario = AvatarFormulario()
+
     return render(
         request=request,
         template_name="perfiles/formulario_avatar.html",
